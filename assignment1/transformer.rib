@@ -1,0 +1,146 @@
+#
+Display "transformer" "framebuffer" "rgb" 
+Format 600 400 1
+Projection "perspective" "fov" [30]
+# Translate Camera (moves world origin 10 units towards +Z)
+Translate 0 0 10
+WorldBegin 
+    LightSource "ambientlight" 1 "intensity" [0.6]
+    LightSource "distantlight" 2 "intensity" 0.9 "from" [-3 5 -4] "to" [0 0 0]
+    Color [0.4 0.2 0.0]
+#floor
+Color [0.8 0.8 0.8]
+AttributeBegin
+    Polygon "P" [-100 -13 100  100 -13 100 100 -13 0 -100 -13 0]
+AttributeEnd
+
+#Transformer
+Surface "shinymetal"
+TransformBegin
+Translate -5 0 50
+Color [0.6 0.6 0.0]
+
+#hip
+	AttributeBegin
+		Scale 4 1 1
+		Rotate 90 1 0 0
+		Cylinder 1 0.5 -0.5 360
+	AttributeEnd
+#legs	
+	TransformBegin
+		Translate 2 0 0
+		Rotate 90 1 0 0
+		AttributeBegin
+			AttributeBegin
+				Cylinder 1.5 3 0 360
+				AttributeBegin
+					Translate 0 0 3
+					Cylinder 1 4 0 360
+					AttributeBegin
+						Translate 0 0 4 
+						Paraboloid 1.7 0 2 360
+					AttributeEnd	
+				AttributeEnd	
+			AttributeEnd		
+		AttributeEnd
+	TransformEnd
+	TransformBegin
+		Translate -2 0 0
+		Rotate 90 1 0 0
+		AttributeBegin
+			Cylinder 1.5 3 0 360
+			AttributeBegin
+				Translate 0 0 3
+				Cylinder 1 4 0 360
+				AttributeBegin
+					Translate 0 0 4 
+					Paraboloid 1.7 0 2 360
+				AttributeEnd	
+			AttributeEnd	
+		AttributeEnd		
+	TransformEnd	
+#torso
+	AttributeBegin
+		AttributeBegin
+			Scale  4 1 1
+			Rotate 90 1 0 0
+			Cylinder 0.9 0 -6 360
+		AttributeEnd
+		TransformBegin
+			Translate 3.6 5 0
+			Rotate 90 0 1 0
+			AttributeBegin
+				AttributeBegin
+					Cylinder 1 2 0 360
+					AttributeBegin
+						Translate 0 0 2
+						Cylinder 0.7 4 0 360
+						AttributeBegin
+							Translate 0 0 4
+							Cylinder 0.6 4 0 360
+							AttributeBegin
+								Translate 0 0 4 
+								Sphere 1 -1 1 360
+							AttributeEnd	
+						AttributeEnd	
+					AttributeEnd	
+				AttributeEnd		
+			AttributeEnd
+		TransformEnd	
+		TransformBegin
+			Translate -3.6 5 0
+			Rotate 90 0 -1 0
+			AttributeBegin
+				AttributeBegin
+					Cylinder 1 2 0 360
+					AttributeBegin
+						Translate 0 0 2
+						Cylinder 0.7 4 0 360
+						AttributeBegin
+							Translate 0 0 4
+							Cylinder 0.6 4 0 360
+							AttributeBegin
+								Translate 0 0 4 
+								Sphere 1 -1 1 360
+							AttributeEnd	
+						AttributeEnd	
+					AttributeEnd	
+				AttributeEnd		
+			AttributeEnd
+		TransformEnd	
+		TransformBegin
+			Translate 0 6 0
+			Rotate 90 -1 0 0
+			AttributeBegin
+				Cylinder 0.7 1.5 0 360
+				AttributeBegin
+					Translate 0 0 4.5
+					Scale 1 1 1.5
+					Sphere 2 -2 2 360
+				AttributeEnd	
+			AttributeEnd
+		TransformEnd	
+	AttributeEnd	
+TransformEnd
+
+
+#Transformer
+Surface "shinymetal"
+TransformBegin
+Translate 10 -5 50
+Color [0.5 0.0 0.0]
+
+AttributeBegin
+	Rotate 90 -1 0 0
+	AttributeBegin
+		Sphere 4 -4 4 360
+		AttributeBegin
+			Translate 0 0 4
+			Sphere 3 0 3 360
+		AttributeEnd
+	AttributeEnd
+AttributeEnd		
+
+TransformEnd
+
+WorldEnd
