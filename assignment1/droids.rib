@@ -19,7 +19,7 @@ Attribute "trace" "int maxdiffusedepth" [5] "int maxspeculardepth" [5]
 
 #front back
 AttributeBegin
-	Surface "shaders/metaltrace" "float Ks" 0.2 "float Kd" 0.0 "float Ka" 0 "float roughness" 0.9 "float mirror" 1
+	Surface "shaders/metaltrace" "float Ks" 0.2 "float Kd" 0.0 "float Ka" 0 "float roughness" 0.9
 	Polygon "P" [ -30 -20 100 -30 20 100 30 20 100 30 -20 100 ]
 AttributeEnd
 AttributeBegin
@@ -28,10 +28,12 @@ AttributeBegin
 AttributeEnd
 #left right
 AttributeBegin
+	Surface "shaders/metaltrace" "float Ks" 0.0 "float Kd" 0.5 "float Ka" 0.5 "float roughness" 0.1 "color nontexturecolor" [0.8 0.0 0.0]
 	Color [0.8 0.0 0.0]
 	Polygon "P" [ -30 -20 100 -30 20 100 -30 20 -100 -30 -20 -100 ]
 AttributeEnd
 AttributeBegin
+	Surface "shaders/metaltrace" "float Ks" 0.0 "float Kd" 0.5 "float Ka" 0.5 "float roughness" 0.1 "color nontexturecolor" [0.0 0.0 0.8]
 	Color [0.0 0.0 0.8]
 	Polygon "P" [ 30 -20 100 30 20 100 30 20 -100 30 -20 -100 ]
 AttributeEnd
