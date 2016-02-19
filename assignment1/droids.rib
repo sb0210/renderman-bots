@@ -4,7 +4,7 @@ Format 1024 800 1
 Projection "perspective" "fov" [30]
 # Translate Camera (moves world origin 10 units towards +Z)
 Translate 0 0 60
-
+Rotate 21 0 1 0
 ShadingRate 1
 WorldBegin 
     LightSource "ambientlight" 1 "intensity" [0.6]
@@ -15,35 +15,33 @@ WorldBegin
 Attribute "visibility" "int specular" [1] 
                        "int diffuse" [1] 
                        "int transmission" [1]
-Attribute "trace" "int maxdiffusedepth" [5] "int maxspeculardepth" [5]
+Attribute "trace" "int maxdiffusedepth" [5] "int maxspeculardepth" [10]
 
 #front back
 AttributeBegin
-	Surface "shaders/metaltrace" "float Ks" 0.2 "float Kd" 0.0 "float Ka" 0 "float roughness" 0.9
+	Surface "shaders/simplemirror"
 	Polygon "P" [ -30 -20 100 -30 20 100 30 20 100 30 -20 100 ]
 AttributeEnd
 AttributeBegin
-	Color [0.8 0.8 0.0]
-	Polygon "P" [ -30 -20 -100 -30 20 -100 30 20 -100 30 -20 -100 ]
+	Surface "shaders/simplemirror"
+	Polygon "P" [ 30 -20 -100 30 20 -100 -30 20 -100 -30 -20 -100 ]
 AttributeEnd
 #left right
 AttributeBegin
-	Surface "shaders/metaltrace" "float Ks" 0.0 "float Kd" 0.5 "float Ka" 0.5 "float roughness" 0.1 "color nontexturecolor" [0.8 0.0 0.0]
 	Color [0.8 0.0 0.0]
 	Polygon "P" [ -30 -20 100 -30 20 100 -30 20 -100 -30 -20 -100 ]
 AttributeEnd
 AttributeBegin
-	Surface "shaders/metaltrace" "float Ks" 0.0 "float Kd" 0.5 "float Ka" 0.5 "float roughness" 0.1 "color nontexturecolor" [0.0 0.0 0.8]
 	Color [0.0 0.0 0.8]
 	Polygon "P" [ 30 -20 100 30 20 100 30 20 -100 30 -20 -100 ]
 AttributeEnd
 #top down
 AttributeBegin
-	Color [0.8 0.8 0.8]
+	Color [0.8 0.2 0.8]
 	Polygon "P" [ 30 -20 100 30 -20 -100 -30 -20 -100 -30 -20 100 ]
 AttributeEnd
 AttributeBegin
-	Color [0.8 0.8 0.8]
+	Color [0.9 0.9 0.9]
 	Polygon "P" [ 30 20 100 30 20 -100 -30 20 -100 -30 20 100 ]
 AttributeEnd
 
@@ -59,12 +57,12 @@ AttributeEnd
 
 #Droid
 AttributeBegin
-	Surface "shaders/metaltrace" "texturename" ["textures/metal.tex"]
+	Surface "paintedplastic" "texturename" ["textures/metal.tex"]
     TransformBegin
 	Translate -5 -10.5 50
 	#hip
 		AttributeBegin
-			Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
+			Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
 			Scale 4 1 1
 			Rotate 90 1 0 0
 			Cylinder 1 -0.5 0.5 360
@@ -74,14 +72,14 @@ AttributeBegin
 			Translate 2 -0.5 0
 			Rotate 90 1 0 0
 			AttributeBegin
-				Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
+				Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
 				Cylinder 1.5 0 3 360
 				AttributeBegin
-					Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
+					Surface "paintedplastic" "texturename" ["textures/skin.tex"]
 					Translate 0 0 3
 					Cylinder 1 0 4 360
 					AttributeBegin
-						Surface "shaders/metaltrace" "texturename" ["textures/shoes.tex"]
+						Surface "paintedplastic" "texturename" ["textures/shoes.tex"]
 						Translate 0 0 4 
 						Paraboloid 1.7 0 2 360
 					AttributeEnd	
@@ -92,14 +90,14 @@ AttributeBegin
 			Translate -2 -0.5 0
 			Rotate 90 1 0 0
 			AttributeBegin
-				Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
+				Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
 				Cylinder 1.5 0 3 360
 				AttributeBegin
-					Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
+					Surface "paintedplastic" "texturename" ["textures/skin.tex"]
 					Translate 0 0 3
 					Cylinder 1 0 4 360
 					AttributeBegin
-						Surface "shaders/metaltrace" "texturename" ["textures/shoes.tex"]
+						Surface "paintedplastic" "texturename" ["textures/shoes.tex"]
 						Translate 0 0 4 
 						Paraboloid 1.7 0 2 360
 					AttributeEnd	
@@ -109,7 +107,7 @@ AttributeBegin
 	#torso
 		AttributeBegin
 			AttributeBegin
-				Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
+				Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
 				Scale  4 1 1
 				Rotate 90 1 0 0
 				Cylinder 0.9 -6 0 360
@@ -119,11 +117,11 @@ AttributeBegin
 				Rotate 90 0 1 0
 				AttributeBegin
 					AttributeBegin
-						Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
+						Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
 						Cylinder 1 0 2 360
 						AttributeBegin
 							Translate 0 0 2
-							Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
+							Surface "paintedplastic" "texturename" ["textures/skin.tex"]
 							Cylinder 0.7 0 4 360
 							AttributeBegin
 								Translate 0 0 4
@@ -142,11 +140,11 @@ AttributeBegin
 				Rotate 90 0 -1 0
 				AttributeBegin
 					AttributeBegin
-						Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
+						Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
 						Cylinder 1 0 2 360
 						AttributeBegin
 							Translate 0 0 2
-							Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
+							Surface "paintedplastic" "texturename" ["textures/skin.tex"]
 							Cylinder 0.7 0 4 360
 							AttributeBegin
 								Translate 0 0 4
@@ -180,10 +178,10 @@ AttributeBegin
 				Translate 0 6 0
 				Rotate 90 -1 0 0
 				AttributeBegin
-					Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
+					Surface "paintedplastic" "texturename" ["textures/skin.tex"]
 					Cylinder 0.7 0 1.5 360
 					AttributeBegin
-						Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
+						Surface "paintedplastic" "texturename" ["textures/skin.tex"]
 						Translate 0 0 4.5
 						Scale 1 1 1.5
 						Sphere 2 -2 2 360
@@ -196,7 +194,7 @@ AttributeEnd
 
 #Transformer
 AttributeBegin
-	Surface "shaders/metaltrace" "texturename" ["textures/body_bb8.tex"]
+	Surface "paintedplastic" "texturename" ["textures/body_bb8.tex"]
 	TransformBegin
 	Translate 10 -13 50
 	AttributeBegin
@@ -207,7 +205,6 @@ AttributeBegin
 				Sphere 4 -4 4 360
 			AttributeEnd	
 			AttributeBegin
-				Surface "shaders/metaltrace" "texturename" ["textures/grid.tex"]
 				Translate 0 0 4
 				Sphere 3 0 3 360
 			AttributeEnd

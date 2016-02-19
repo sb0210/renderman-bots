@@ -1,0 +1,216 @@
+#
+Display "droids" "framebuffer" "rgb" 
+Format 1024 800 1
+Projection "perspective" "fov" [30]
+# Translate Camera (moves world origin 10 units towards +Z)
+Translate 0 0 60
+
+ShadingRate 1
+WorldBegin 
+    LightSource "ambientlight" 1 "intensity" [0.6]
+    LightSource "distantlight" 2 "intensity" 0.9 "from" [-3 5 -4] "to" [0 0 0]
+    Color [0.8 0.8 0.0]
+
+
+Attribute "visibility" "int specular" [1] 
+                       "int diffuse" [1] 
+                       "int transmission" [1]
+Attribute "trace" "int maxdiffusedepth" [5] "int maxspeculardepth" [5]
+
+#front back
+AttributeBegin
+	Color [0.8 0.8 0.8]
+	Polygon "P" [ -30 -20 100 -30 20 100 30 20 100 30 -20 100 ]
+AttributeEnd
+AttributeBegin
+	Color [0.8 0.8 0.0]
+	Polygon "P" [ -30 -20 -100 -30 20 -100 30 20 -100 30 -20 -100 ]
+AttributeEnd
+#left right
+AttributeBegin
+	Color [0.8 0.0 0.0]
+	Polygon "P" [ -30 -20 100 -30 20 100 -30 20 -100 -30 -20 -100 ]
+AttributeEnd
+AttributeBegin
+	Color [0.0 0.0 0.8]
+	Polygon "P" [ 30 -20 100 30 20 100 30 20 -100 30 -20 -100 ]
+AttributeEnd
+#top down
+AttributeBegin
+	Color [0.8 0.8 0.8]
+	Polygon "P" [ 30 -20 100 30 -20 -100 -30 -20 -100 -30 -20 100 ]
+AttributeEnd
+AttributeBegin
+	Color [0.8 0.8 0.8]
+	Polygon "P" [ 30 20 100 30 20 -100 -30 20 -100 -30 20 100 ]
+AttributeEnd
+
+#sphere
+AttributeBegin
+	Surface "shaders/glassrefr"
+	Translate -20 -17 40
+    Color [0.8 0.8 0.8]
+	Sphere 3 -3 3 360
+AttributeEnd	
+
+
+
+#Droid
+AttributeBegin
+	Surface "shaders/metaltrace" "texturename" ["textures/metal.tex"]
+    TransformBegin
+	Translate -5 -10.5 50
+	#hip
+		AttributeBegin
+			Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
+			Scale 4 1 1
+			Rotate 90 1 0 0
+			Cylinder 1 -0.5 0.5 360
+		AttributeEnd
+	#legs	
+		TransformBegin
+			Translate 2 -0.5 0
+			Rotate 90 1 0 0
+			AttributeBegin
+				Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
+				Cylinder 1.5 0 3 360
+				AttributeBegin
+					Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
+					Translate 0 0 3
+					Cylinder 1 0 4 360
+					AttributeBegin
+						Surface "shaders/metaltrace" "texturename" ["textures/shoes.tex"]
+						Translate 0 0 4 
+						Paraboloid 1.7 0 2 360
+					AttributeEnd	
+				AttributeEnd	
+			AttributeEnd		
+		TransformEnd
+		TransformBegin
+			Translate -2 -0.5 0
+			Rotate 90 1 0 0
+			AttributeBegin
+				Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
+				Cylinder 1.5 0 3 360
+				AttributeBegin
+					Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
+					Translate 0 0 3
+					Cylinder 1 0 4 360
+					AttributeBegin
+						Surface "shaders/metaltrace" "texturename" ["textures/shoes.tex"]
+						Translate 0 0 4 
+						Paraboloid 1.7 0 2 360
+					AttributeEnd	
+				AttributeEnd	
+			AttributeEnd		
+		TransformEnd	
+	#torso
+		AttributeBegin
+			AttributeBegin
+				Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
+				Scale  4 1 1
+				Rotate 90 1 0 0
+				Cylinder 0.9 -6 0 360
+			AttributeEnd
+			TransformBegin
+				Translate 3.6 5 0
+				Rotate 90 0 1 0
+				AttributeBegin
+					AttributeBegin
+						Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
+						Cylinder 1 0 2 360
+						AttributeBegin
+							Translate 0 0 2
+							Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
+							Cylinder 0.7 0 4 360
+							AttributeBegin
+								Translate 0 0 4
+								Cylinder 0.6 0 4 360
+								AttributeBegin
+									Translate 0 0 4 
+									Sphere 1 -1 1 360
+								AttributeEnd	
+							AttributeEnd	
+						AttributeEnd	
+					AttributeEnd		
+				AttributeEnd
+			TransformEnd	
+			TransformBegin
+				Translate -3.6 5 0
+				Rotate 90 0 -1 0
+				AttributeBegin
+					AttributeBegin
+						Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
+						Cylinder 1 0 2 360
+						AttributeBegin
+							Translate 0 0 2
+							Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
+							Cylinder 0.7 0 4 360
+							AttributeBegin
+								Translate 0 0 4
+								Cylinder 0.6 0 4 360
+								AttributeBegin
+									Translate 0 0 4 
+									Sphere 1 -1 1 360
+									# saber
+									TransformBegin
+										Rotate 90 1 0 0
+										Translate 0 0 -3
+										AttributeBegin
+											Surface "shinymetal" "float roughness" 1
+											Color [0.6 0.6 0.6]
+											Cylinder .4 0 6 360
+											Translate 0 0 -8
+											Surface "shaders/geolight" "float intensity" 0.4 "color lightColor" [1 0 0] "float finalOpacity" 0.4
+											Cylinder .4 0 8 360
+											AreaLightSource "shaders/geolight" "saberLight" "float intensity" 1 "color lightColor" [1 0 0]
+											Surface "shaders/geolight" "float intensity" 1 "color lightColor" [1 0 0] 
+											Cylinder .1 0 8 360
+										AttributeEnd
+									TransformEnd
+								AttributeEnd	
+							AttributeEnd	
+						AttributeEnd	
+					AttributeEnd		
+				AttributeEnd
+			TransformEnd
+			TransformBegin
+				Translate 0 6 0
+				Rotate 90 -1 0 0
+				AttributeBegin
+					Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
+					Cylinder 0.7 0 1.5 360
+					AttributeBegin
+						Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
+						Translate 0 0 4.5
+						Scale 1 1 1.5
+						Sphere 2 -2 2 360
+					AttributeEnd	
+				AttributeEnd
+			TransformEnd	
+		AttributeEnd	
+	TransformEnd
+AttributeEnd
+
+#Transformer
+AttributeBegin
+	Surface "shaders/metaltrace" "texturename" ["textures/body_bb8.tex"]
+	TransformBegin
+	Translate 10 -13 50
+	AttributeBegin
+		Rotate 90 -1 0 0
+		AttributeBegin
+			AttributeBegin
+				Rotate 90 0 1 0
+				Sphere 4 -4 4 360
+			AttributeEnd	
+			AttributeBegin
+				Surface "shaders/metaltrace" "texturename" ["textures/grid.tex"]
+				Translate 0 0 4
+				Sphere 3 0 3 360
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd		
+	TransformEnd
+AttributeEnd
+WorldEnd
