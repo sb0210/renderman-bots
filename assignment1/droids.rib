@@ -19,7 +19,7 @@ Attribute "trace" "int maxdiffusedepth" [5] "int maxspeculardepth" [5]
 
 #front back
 AttributeBegin
-	Color [0.8 0.8 0.8]
+	Surface "shaders/metaltrace" "float Ks" 0.2 "float Kd" 0.0 "float Ka" 0 "float roughness" 0.9 "float mirror" 1
 	Polygon "P" [ -30 -20 100 -30 20 100 30 20 100 30 -20 100 ]
 AttributeEnd
 AttributeBegin
@@ -157,11 +157,11 @@ AttributeBegin
 										Rotate 90 1 0 0
 										Translate 0 0 -3
 										AttributeBegin
-											Surface "shinymetal" "float roughness" 1
+											Surface "shaders/metaltrace" "float roughness" 1 "float mirror" 1
 											Color [0.6 0.6 0.6]
 											Cylinder .4 0 6 360
 											Translate 0 0 -8
-											Surface "shaders/geolight" "float intensity" 0.4 "color lightColor" [1 0 0] "float finalOpacity" 0.4
+											Surface "shaders/geolight" "float intensity" 0.5 "color lightColor" [1 0 0] "float finalOpacity" 0.4
 											Cylinder .4 0 8 360
 											AreaLightSource "shaders/geolight" "saberLight" "float intensity" 1 "color lightColor" [1 0 0]
 											Surface "shaders/geolight" "float intensity" 1 "color lightColor" [1 0 0] 
