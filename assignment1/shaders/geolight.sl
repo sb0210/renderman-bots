@@ -6,7 +6,7 @@ class geolight (float intensity = 1;
     {
         color emission = intensity * lightColor;
         Oi = finalOpacity;
-        emit(emission, "specularcontribution", 100, "diffusecontribution", 100);
+        emit(emission, "specularcontribution", 1, "diffusecontribution", 1);
     }
 
     public void surface(output color Ci, Oi) {
