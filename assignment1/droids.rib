@@ -1,59 +1,97 @@
 #
 Display "droids" "framebuffer" "rgb" 
 Format 1024 800 1
+PixelSamples 4 4
 Projection "perspective" "fov" [30]
 # Translate Camera (moves world origin 10 units towards +Z)
 Translate 0 0 60
 Rotate 21 0 1 0
-ShadingRate 1
+#ShadingRate 1
+Option "photon" "emit" 500000
+Option "photon" "string lifetime" "transient" 
+Attribute "photon" "globalmap" "spglobal.ptc"
+Attribute "photon" "causticmap" "spcaustic.ptc"
+
 WorldBegin 
-    LightSource "ambientlight" 1 "intensity" [0.6]
-    LightSource "distantlight" 2 "intensity" 0.9 "from" [-3 5 -4] "to" [0 0 0]
-    Color [0.8 0.8 0.8]
 
+LightSource "ambientlight" 1 "intensity" [0.6]
+LightSource "distantlight" 2 "intensity" 0.9 "from" [-3 5 -4] "to" [0 0 0]
+LightSource "shadowspot" 3 "from" [-5 0 30] "to" [-10 -20 30] "intensity" 2000  "coneangle" 0.9 "string shadowname" "raytrace"
+LightSource "causticlight" 4 "color filter" [0.2 0.2 0.2]
 
-Attribute "visibility" "int specular" [1] 
-                       "int diffuse" [1] 
-                       "int transmission" [1]
+Attribute "visibility" "transmission" 1
+Attribute "visibility" "specular" 1
+Attribute "visibility" "diffuse" 1
 Attribute "trace" "int maxdiffusedepth" [5] "int maxspeculardepth" [10]
+
 
 #front back
 AttributeBegin
-	Surface "shaders/simplemirror"
+	Attribute "photon" "shadingmodel" "chrome"
+	Surface "aachrome" "color specularcolor" [0.02 0.62 0.98]
+	Sides 2
 	Polygon "P" [ -30 -20 100 -30 20 100 30 20 100 30 -20 100 ]
 AttributeEnd
 AttributeBegin
-	#Surface "shaders/simplemirror"
+	Sides 2
+	Attribute "photon" "shadingmodel" "matte"
+	Surface "matte"
 	Polygon "P" [ 30 -20 -100 30 20 -100 -30 20 -100 -30 -20 -100 ]
 AttributeEnd
 #left right
 AttributeBegin
 	Color [0.0 0.8 0.0]
+	Sides 2
+	Attribute "photon" "shadingmodel" "matte"
+	Surface "matte"
 	Polygon "P" [ -30 -20 100 -30 20 100 -30 20 -100 -30 -20 -100 ]
 AttributeEnd
 AttributeBegin
 	Color [0.0 0.0 0.8]
+	Sides 2
+	Attribute "photon" "shadingmodel" "matte"
+	Surface "matte"
 	Polygon "P" [ 30 -20 100 30 20 100 30 20 -100 30 -20 -100 ]
 AttributeEnd
 #top down
 AttributeBegin
 	Color [0.8 0.2 0.8]
+	Sides 2
+	Attribute "photon" "shadingmodel" "matte"
+	Surface "matte"
 	Polygon "P" [ 30 -20 100 30 -20 -100 -30 -20 -100 -30 -20 100 ]
 AttributeEnd
 AttributeBegin
 	Color [0.9 0.9 0.9]
+	Sides 2
+	Attribute "photon" "shadingmodel" "matte"
+	Surface "matte"
 	Polygon "P" [ 30 20 100 30 20 -100 -30 20 -100 -30 20 100 ]
 AttributeEnd
 
+
 #sphere
 AttributeBegin
-	Surface "shaders/glassrefr"
-	Translate -20 -17 40
+	
+	Attribute "photon" "shadingmodel" "glass"
+	Surface "glass" "float Ks" 0.9 "float Kd" 0.4
+	Translate 2 -17 40
     Color [0.8 0.8 0.8]
 	Sphere 3 -3 3 360
 AttributeEnd	
 
 
+AttributeBegin
+
+  Translate -15 -20 30
+  Attribute "photon" "shadingmodel" "chrome"
+  Color 0.3 0.7 0.2
+  Surface "aachrome" "color specularcolor" [0.3 0.7 0.2]
+  Rotate 90 1 0 0
+  Cylinder 6 -7 1 180
+  Orientation "inside"
+  Cylinder 5.99 -7 1 180
+AttributeEnd
 
 #Droid
 AttributeBegin
@@ -161,9 +199,10 @@ AttributeBegin
 											Color [0.6 0.6 0.6]
 											Cylinder .4 0 6 360
 											Translate 0 0 -8
+											AreaLightSource "shaders/geolight" "saberLight" "float intensity" 1 "color lightColor" [1 0 0] "float finalOpacity" 0.2
 											Surface "shaders/geolight" "float intensity" 0.2 "color lightColor" [1 0 0] "float finalOpacity" 0.2
 											Cylinder .4 0 8 360
-											AreaLightSource "shaders/geolight" "saberLight" "float intensity" 1 "color lightColor" [1 0 0] "float finalOpacity" 0.2
+											AreaLightSource "shaders/geolight" "saberLight2" "float intensity" 1 "color lightColor" [1 0 0] "float finalOpacity" 1
 											Surface "shaders/geolight" "float intensity" 1 "color lightColor" [1 0 0]  "float finalOpacity" 1
 											Cylinder .1 0 8 360
 										AttributeEnd
