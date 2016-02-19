@@ -57,12 +57,12 @@ AttributeEnd
 
 #Droid
 AttributeBegin
-	Surface "paintedplastic" "texturename" ["textures/metal.tex"]
+	Surface "shaders/metaltrace" "texturename" ["textures/metal.tex"]
     TransformBegin
 	Translate -5 -10.5 50
 	#hip
 		AttributeBegin
-			Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
+			Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
 			Scale 4 1 1
 			Rotate 90 1 0 0
 			Cylinder 1 -0.5 0.5 360
@@ -72,14 +72,14 @@ AttributeBegin
 			Translate 2 -0.5 0
 			Rotate 90 1 0 0
 			AttributeBegin
-				Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
+				Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
 				Cylinder 1.5 0 3 360
 				AttributeBegin
-					Surface "paintedplastic" "texturename" ["textures/skin.tex"]
+					Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
 					Translate 0 0 3
 					Cylinder 1 0 4 360
 					AttributeBegin
-						Surface "paintedplastic" "texturename" ["textures/shoes.tex"]
+						Surface "shaders/metaltrace" "texturename" ["textures/shoes.tex"]
 						Translate 0 0 4 
 						Paraboloid 1.7 0 2 360
 					AttributeEnd	
@@ -90,14 +90,14 @@ AttributeBegin
 			Translate -2 -0.5 0
 			Rotate 90 1 0 0
 			AttributeBegin
-				Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
+				Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
 				Cylinder 1.5 0 3 360
 				AttributeBegin
-					Surface "paintedplastic" "texturename" ["textures/skin.tex"]
+					Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
 					Translate 0 0 3
 					Cylinder 1 0 4 360
 					AttributeBegin
-						Surface "paintedplastic" "texturename" ["textures/shoes.tex"]
+						Surface "shaders/metaltrace" "texturename" ["textures/shoes.tex"]
 						Translate 0 0 4 
 						Paraboloid 1.7 0 2 360
 					AttributeEnd	
@@ -107,7 +107,7 @@ AttributeBegin
 	#torso
 		AttributeBegin
 			AttributeBegin
-				Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
+				Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
 				Scale  4 1 1
 				Rotate 90 1 0 0
 				Cylinder 0.9 -6 0 360
@@ -117,11 +117,11 @@ AttributeBegin
 				Rotate 90 0 1 0
 				AttributeBegin
 					AttributeBegin
-						Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
+						Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
 						Cylinder 1 0 2 360
 						AttributeBegin
 							Translate 0 0 2
-							Surface "paintedplastic" "texturename" ["textures/skin.tex"]
+							Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
 							Cylinder 0.7 0 4 360
 							AttributeBegin
 								Translate 0 0 4
@@ -140,11 +140,11 @@ AttributeBegin
 				Rotate 90 0 -1 0
 				AttributeBegin
 					AttributeBegin
-						Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
+						Surface "shaders/metaltrace" "texturename" ["textures/red_metal.tex"]
 						Cylinder 1 0 2 360
 						AttributeBegin
 							Translate 0 0 2
-							Surface "paintedplastic" "texturename" ["textures/skin.tex"]
+							Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
 							Cylinder 0.7 0 4 360
 							AttributeBegin
 								Translate 0 0 4
@@ -178,10 +178,10 @@ AttributeBegin
 				Translate 0 6 0
 				Rotate 90 -1 0 0
 				AttributeBegin
-					Surface "paintedplastic" "texturename" ["textures/skin.tex"]
+					Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
 					Cylinder 0.7 0 1.5 360
 					AttributeBegin
-						Surface "paintedplastic" "texturename" ["textures/skin.tex"]
+						Surface "shaders/metaltrace" "texturename" ["textures/skin.tex"]
 						Translate 0 0 4.5
 						Scale 1 1 1.5
 						Sphere 2 -2 2 360
@@ -194,7 +194,7 @@ AttributeEnd
 
 #Transformer
 AttributeBegin
-	Surface "paintedplastic" "texturename" ["textures/body_bb8.tex"]
+	Surface "shaders/metaltrace" "texturename" ["textures/body_bb8.tex"]
 	TransformBegin
 	Translate 10 -13 50
 	AttributeBegin
@@ -205,7 +205,7 @@ AttributeBegin
 				Sphere 4 -4 4 360
 			AttributeEnd	
 			AttributeBegin
-				Surface "paintedplastic" "texturename" ["textures/grid.tex"]
+				Surface "shaders/metaltrace" "texturename" ["textures/grid.tex"]
 				Translate 0 0 4
 				Sphere 3 0 3 360
 			AttributeEnd
