@@ -25,5 +25,4 @@ droid: shaders
 
 clean:
 	rm shaders/*.slo
-	rm cameras/*.tif
-
+	rm *ptc

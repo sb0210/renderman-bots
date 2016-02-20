@@ -23,7 +23,7 @@
 */
 surface
 indirectpaintedplastic( float Ks=.7, Kd=.5, Ka=1, roughness=.5; color specularcolor=1;
-     string texturename = ""; float samples=16;)
+     string texturename = ""; float samples=25;)
 {
     normal Nf;
     vector V;
