@@ -20,7 +20,7 @@ Textures :
 	
 
 HTML report present at 
-https://www.cse.iitb.ac.in/~siddharth.bulia/cs775/a1.html
+http://siddharthbulia.github.io/computer-graphics-775/a1.html
 
 
 
