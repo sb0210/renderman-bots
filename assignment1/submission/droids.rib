@@ -1,0 +1,9 @@
+#
+Display "cameras/camera0.tif" "framebuffer" "rgb" 
+Format 1024 800 1
+PixelSamples 4 4
+Projection "perspective" "fov" [30]
+# Translate Camera (moves world origin 10 units towards +Z)
+Translate 0 0 60
+
+ReadArchive "inner.rib"
