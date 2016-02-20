@@ -6,18 +6,34 @@ Projection "perspective" "fov" [30]
 # Translate Camera (moves world origin 10 units towards +Z)
 Translate 0 0 60
 Rotate 21 0 1 0
-#ShadingRate 1
+ShadingRate 10
 Option "photon" "emit" 500000
-Option "photon" "string lifetime" "transient" 
-Attribute "photon" "globalmap" "spglobal.ptc"
-Attribute "photon" "causticmap" "spcaustic.ptc"
+Option "photon" "string lifetime" "file" 
+Attribute "photon" "globalmap" "global.ptc"
+Attribute "photon" "causticmap" "caustic.ptc"
 
 WorldBegin 
 
-LightSource "ambientlight" 1 "intensity" [0.6]
-LightSource "distantlight" 2 "intensity" 0.9 "from" [-3 5 -4] "to" [0 0 0]
-LightSource "shadowspot" 3 "from" [-5 0 30] "to" [-10 -20 30] "intensity" 2000  "coneangle" 0.9 "string shadowname" "raytrace"
+LightSource "ambientlight" 1 "intensity" [0.2]
+LightSource "distantlight" 2 "intensity" 0.5 "from" [-3 5 -4] "to" [0 0 0]
+LightSource "shadowspot" 3 "from" [-5 0 30] "to" [-10 -20 30] "intensity" 2000  "coneangle" 0.8 "string shadowname" "raytrace"
 LightSource "causticlight" 4 "color filter" [0.2 0.2 0.2]
+
+# Flashlight on floor
+AttributeBegin
+	Translate -20 -19 70
+	Rotate 45 0 -1 0
+	Color 1 1 0
+	Cylinder 0.7 0 3 360
+	Disk 0 0.7 360
+	Color 1 1 1
+	Translate 0 0 4
+	Cone -2 0.9 360
+	TransformBegin
+		Scale 20 20 1
+		LightSource "plausibleArealight" "arealt" "intensity" 150 "color lightcolor" [1 1 1] "float maxSamples" 64 "float sides" 2 "string shape" "disk"
+	TransformEnd
+AttributeEnd
 
 Attribute "visibility" "transmission" 1
 Attribute "visibility" "specular" 1
@@ -25,47 +41,56 @@ Attribute "visibility" "diffuse" 1
 Attribute "trace" "int maxdiffusedepth" [5] "int maxspeculardepth" [10]
 
 
-#front back
+# Walls
+#front
 AttributeBegin
 	Attribute "photon" "shadingmodel" "chrome"
-	Surface "aachrome" "color specularcolor" [0.02 0.62 0.98]
+	Surface "aachrome" "color specularcolor" [0.9 0.8 0.1]
 	Sides 2
 	Polygon "P" [ -30 -20 100 -30 20 100 30 20 100 30 -20 100 ]
 AttributeEnd
+
+#back
 AttributeBegin
 	Sides 2
 	Attribute "photon" "shadingmodel" "matte"
-	Surface "matte"
+	Surface "shaders/bleedwall"
 	Polygon "P" [ 30 -20 -100 30 20 -100 -30 20 -100 -30 -20 -100 ]
 AttributeEnd
-#left right
+
+#left
 AttributeBegin
 	Color [0.0 0.8 0.0]
 	Sides 2
 	Attribute "photon" "shadingmodel" "matte"
-	Surface "matte"
+	Surface "shaders/bleedwall"
 	Polygon "P" [ -30 -20 100 -30 20 100 -30 20 -100 -30 -20 -100 ]
 AttributeEnd
+
+#right
 AttributeBegin
 	Color [0.0 0.0 0.8]
 	Sides 2
 	Attribute "photon" "shadingmodel" "matte"
-	Surface "matte"
+	Surface "shaders/bleedwall"
 	Polygon "P" [ 30 -20 100 30 20 100 30 20 -100 30 -20 -100 ]
 AttributeEnd
-#top down
+
+#bottom
 AttributeBegin
 	Color [0.8 0.2 0.8]
 	Sides 2
 	Attribute "photon" "shadingmodel" "matte"
-	Surface "matte"
+	Surface "shaders/bleedwall"
 	Polygon "P" [ 30 -20 100 30 -20 -100 -30 -20 -100 -30 -20 100 ]
 AttributeEnd
+
+#top
 AttributeBegin
 	Color [0.9 0.9 0.9]
 	Sides 2
 	Attribute "photon" "shadingmodel" "matte"
-	Surface "matte"
+	Surface "shaders/bleedwall"
 	Polygon "P" [ 30 20 100 30 20 -100 -30 20 -100 -30 20 100 ]
 AttributeEnd
 
@@ -95,12 +120,12 @@ AttributeEnd
 
 #Droid
 AttributeBegin
-	Surface "paintedplastic" "texturename" ["textures/metal.tex"]
+	Surface "shaders/indirectpaintedplastic" "texturename" ["textures/metal.tex"]
     TransformBegin
 	Translate -5 -10.5 50
 	#hip
 		AttributeBegin
-			Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
+			Surface "shaders/indirectpaintedplastic" "texturename" ["textures/red_metal.tex"]
 			Scale 4 1 1
 			Rotate 90 1 0 0
 			Cylinder 1 -0.5 0.5 360
@@ -110,14 +135,14 @@ AttributeBegin
 			Translate 2 -0.5 0
 			Rotate 90 1 0 0
 			AttributeBegin
-				Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
+				Surface "shaders/indirectpaintedplastic" "texturename" ["textures/red_metal.tex"]
 				Cylinder 1.5 0 3 360
 				AttributeBegin
-					Surface "paintedplastic" "texturename" ["textures/skin.tex"]
+					Surface "shaders/indirectpaintedplastic" "texturename" ["textures/skin.tex"]
 					Translate 0 0 3
 					Cylinder 1 0 4 360
 					AttributeBegin
-						Surface "paintedplastic" "texturename" ["textures/shoes.tex"]
+						Surface "shaders/indirectpaintedplastic" "texturename" ["textures/shoes.tex"]
 						Translate 0 0 4 
 						Paraboloid 1.7 0 2 360
 					AttributeEnd	
@@ -128,14 +153,14 @@ AttributeBegin
 			Translate -2 -0.5 0
 			Rotate 90 1 0 0
 			AttributeBegin
-				Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
+				Surface "shaders/indirectpaintedplastic" "texturename" ["textures/red_metal.tex"]
 				Cylinder 1.5 0 3 360
 				AttributeBegin
-					Surface "paintedplastic" "texturename" ["textures/skin.tex"]
+					Surface "shaders/indirectpaintedplastic" "texturename" ["textures/skin.tex"]
 					Translate 0 0 3
 					Cylinder 1 0 4 360
 					AttributeBegin
-						Surface "paintedplastic" "texturename" ["textures/shoes.tex"]
+						Surface "shaders/indirectpaintedplastic" "texturename" ["textures/shoes.tex"]
 						Translate 0 0 4 
 						Paraboloid 1.7 0 2 360
 					AttributeEnd	
@@ -145,7 +170,7 @@ AttributeBegin
 	#torso
 		AttributeBegin
 			AttributeBegin
-				Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
+				Surface "shaders/indirectpaintedplastic" "texturename" ["textures/red_metal.tex"]
 				Scale  4 1 1
 				Rotate 90 1 0 0
 				Cylinder 0.9 -6 0 360
@@ -155,11 +180,11 @@ AttributeBegin
 				Rotate 90 0 1 0
 				AttributeBegin
 					AttributeBegin
-						Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
+						Surface "shaders/indirectpaintedplastic" "texturename" ["textures/red_metal.tex"]
 						Cylinder 1 0 2 360
 						AttributeBegin
 							Translate 0 0 2
-							Surface "paintedplastic" "texturename" ["textures/skin.tex"]
+							Surface "shaders/indirectpaintedplastic" "texturename" ["textures/skin.tex"]
 							Cylinder 0.7 0 4 360
 							AttributeBegin
 								Translate 0 0 4
@@ -178,11 +203,11 @@ AttributeBegin
 				Rotate 90 0 -1 0
 				AttributeBegin
 					AttributeBegin
-						Surface "paintedplastic" "texturename" ["textures/red_metal.tex"]
+						Surface "shaders/indirectpaintedplastic" "texturename" ["textures/red_metal.tex"]
 						Cylinder 1 0 2 360
 						AttributeBegin
 							Translate 0 0 2
-							Surface "paintedplastic" "texturename" ["textures/skin.tex"]
+							Surface "shaders/indirectpaintedplastic" "texturename" ["textures/skin.tex"]
 							Cylinder 0.7 0 4 360
 							AttributeBegin
 								Translate 0 0 4
@@ -217,10 +242,10 @@ AttributeBegin
 				Translate 0 6 0
 				Rotate 90 -1 0 0
 				AttributeBegin
-					Surface "paintedplastic" "texturename" ["textures/skin.tex"]
+					Surface "shaders/indirectpaintedplastic" "texturename" ["textures/skin.tex"]
 					Cylinder 0.7 0 1.5 360
 					AttributeBegin
-						Surface "paintedplastic" "texturename" ["textures/skin.tex"]
+						Surface "shaders/indirectpaintedplastic" "texturename" ["textures/skin.tex"]
 						Translate 0 0 4.5
 						Scale 1 1 1.5
 						Sphere 2 -2 2 360
@@ -233,7 +258,7 @@ AttributeEnd
 
 #Transformer
 AttributeBegin
-	Surface "paintedplastic" "texturename" ["textures/body_bb8.tex"]
+	Surface "shaders/indirectpaintedplastic" "texturename" ["textures/body_bb8.tex"]
 	TransformBegin
 	Translate 10 -13 50
 	AttributeBegin

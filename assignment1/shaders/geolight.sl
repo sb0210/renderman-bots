@@ -1,7 +1,7 @@
 
-#include <stdrsl/ShadingContext.h> // for ShadingUtils
-#include <stdrsl/AreaSampler.h>
-#include <stdrsl/SampleMgrPathTrace.h>
+//#include <stdrsl/ShadingContext.h> // for ShadingUtils
+//#include <stdrsl/AreaSampler.h>
+//#include <stdrsl/SampleMgrPathTrace.h>
 class geolight (float intensity = 1;
                 color lightColor = 1;
                 float finalOpacity = 1)
@@ -10,7 +10,7 @@ class geolight (float intensity = 1;
     {
         color emission = intensity * lightColor;
         Oi = finalOpacity;
-        emit(emission, "cosinepower", 10, "specularcontribution", 0, "diffusecontribution", 100);
+        emit(emission, "cosinepower", 10, "specularcontribution", 100, "diffusecontribution", 100);
         Ci = emission;
     }
 
@@ -23,15 +23,16 @@ class geolight (float intensity = 1;
     {
       // Use stdrsl_AreaSampler to generate a photon origin, direction,
       // texture sample coordinates, and light source area
-      stdrsl_AreaSampler sampler;
-      float ss, tt, lightarea;
-      sampler->generatePhoton("disc", 1,
-                              origin, direction, ss, tt, lightarea);
+      //stdrsl_AreaSampler sampler;
+      //float ss, tt, lightarea;
+      //sampler->generatePhoton("disc", 1,
+      //                        origin, direction, ss, tt, lightarea);
 
+      direction = N;
       color lc = intensity * lightColor;
 
       // Compute power of light source and assign pdf
-      power = lc * lightarea;
-      pdf = intensity * lightarea;
+      power = lc;
+      pdf = intensity;
     }
 }
