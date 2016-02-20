@@ -12,11 +12,19 @@ LightSource "shadowspot" 3 "from" [-5 0 30] "to" [-10 -20 30] "intensity" 2000  
 #LightSource "shadowspot" 3 "from" [0 0 40] "to" [-10 0 60] "intensity" 1000  "coneangle" 0.5 "string shadowname" "raytrace"
 LightSource "causticlight" 4 "color filter" [1 1 1]
 
+
+Attribute "visibility" "transmission" 1
+Attribute "visibility" "specular" 1
+Attribute "visibility" "diffuse" 1
+Attribute "trace" "int maxdiffusedepth" [5] "int maxspeculardepth" [10]
+
 # Flashlight on floor
 AttributeBegin
 	Translate -20 -19 70
 	Rotate 45 0 -1 0
 	Color 1 1 0
+	Attribute "photon" "shadingmodel" "matte"
+	Surface "shaders/indirectpaintedplastic" "texturename" ["textures/metal.tex"]
 	Cylinder 0.7 0 3 360
 	Disk 0 0.7 360
 	Color 1 1 1
@@ -28,10 +36,6 @@ AttributeBegin
 	TransformEnd
 AttributeEnd
 
-Attribute "visibility" "transmission" 1
-Attribute "visibility" "specular" 1
-Attribute "visibility" "diffuse" 1
-Attribute "trace" "int maxdiffusedepth" [5] "int maxspeculardepth" [10]
 
 
 # Walls
@@ -214,7 +218,9 @@ AttributeBegin
 										Rotate 90 1 0 0
 										Translate 0 0 -3
 										AttributeBegin
-											Surface "shaders/metaltrace" "float roughness" 1 "float mirror" 1
+											Attribute "photon" "shadingmodel" "chrome"
+											Color 0.3 0.7 0.2
+											Surface "shaders/aachromeCopy" "color specularcolor" [0.6 0.6 0.6]
 											Color [0.6 0.6 0.6]
 											Cylinder .4 0 6 360
 											Translate 0 0 -8

@@ -24,5 +24,6 @@ droid: shaders
 	prman droids.rib
 
 clean:
-	cd shaders && rm *.sl
+	rm shaders/*.slo
+	rm cameras/*.tif
 
