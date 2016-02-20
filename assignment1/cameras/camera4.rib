@@ -1,0 +1,10 @@
+#
+Display "cameras/camera4.tif" "tiff" "rgb" 
+#Display "droids" "framebuffer" "rgb" 
+Format 1024 800 1
+PixelSamples 4 4
+Projection "perspective" "fov" [30]
+Rotate -15 0 1 0
+Rotate -10 1 0 0
+Translate 28 -18 98
+ReadArchive "inner.rib"
