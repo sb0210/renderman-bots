@@ -1,4 +1,4 @@
-ShadingRate 10
+ShadingRate 1
 Option "photon" "emit" 500000
 Option "photon" "string lifetime" "file" 
 Attribute "photon" "globalmap" "global.ptc"
@@ -34,7 +34,7 @@ Attribute "trace" "int maxdiffusedepth" [5] "int maxspeculardepth" [10]
 
 
 # Walls
-#front
+#back
 AttributeBegin
 	Attribute "photon" "shadingmodel" "chrome"
 	Surface "shaders/aachromeCopy" "color specularcolor" [0.9 0.8 0.1]
@@ -42,7 +42,7 @@ AttributeBegin
 	Polygon "P" [ -30 -20 100 -30 20 100 30 20 100 30 -20 100 ]
 AttributeEnd
 
-#back
+#front
 AttributeBegin
 	Sides 2
 	Attribute "photon" "shadingmodel" "matte"
@@ -52,7 +52,7 @@ AttributeEnd
 
 #left
 AttributeBegin
-	Color [0.0 0.8 0.0]
+	Color [0.8 0.0 0.0]
 	Sides 2
 	Attribute "photon" "shadingmodel" "matte"
 	Surface "shaders/bleedwall"
@@ -61,7 +61,7 @@ AttributeEnd
 
 #right
 AttributeBegin
-	Color [0.0 0.0 0.8]
+	Color [0.0 0.8 0.0]
 	Sides 2
 	Attribute "photon" "shadingmodel" "matte"
 	Surface "shaders/bleedwall"

@@ -5,6 +5,5 @@ PixelSamples 4 4
 Projection "perspective" "fov" [30]
 # Translate Camera (moves world origin 10 units towards +Z)
 Translate 0 0 60
-Rotate 21 0 1 0
 
 ReadArchive "inner.rib"

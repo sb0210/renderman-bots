@@ -23,3 +23,6 @@ camera: $(TIFFS)
 droid: shaders
 	prman droids.rib
 
+clean:
+	cd shaders && rm *.sl
+

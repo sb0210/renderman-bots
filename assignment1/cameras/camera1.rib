@@ -1,10 +1,9 @@
 #
-#Display "cameras/camera1.tif" "tiff" "rgb" 
-Display "droids" "framebuffer" "rgb" 
+Display "cameras/camera1.tif" "tiff" "rgb" 
+#Display "droids" "framebuffer" "rgb" 
 Format 1024 800 1
 PixelSamples 4 4
 Projection "perspective" "fov" [30]
-# Translate Camera (moves world origin 10 units towards +Z)
 Translate -15 14 10
 Rotate 21 0 1 0
 
