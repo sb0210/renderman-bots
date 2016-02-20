@@ -6,7 +6,7 @@ Projection "perspective" "fov" [30]
 # Translate Camera (moves world origin 10 units towards +Z)
 Translate 0 0 60
 Rotate 21 0 1 0
-ShadingRate 10
+ShadingRate 1
 Option "photon" "emit" 500000
 Option "photon" "string lifetime" "file" 
 Attribute "photon" "globalmap" "global.ptc"
@@ -31,7 +31,7 @@ AttributeBegin
 	Cone -2 0.9 360
 	TransformBegin
 		Scale 20 20 1
-		LightSource "plausibleArealight" "arealt" "intensity" 150 "color lightcolor" [1 1 1] "float maxSamples" 64 "float sides" 2 "string shape" "disk"
+		LightSource "shaders/plausibleArealightCopy" "arealt" "intensity" 150 "color lightcolor" [1 1 1] "float maxSamples" 64 "float sides" 2 "string shape" "disk"
 	TransformEnd
 AttributeEnd
 
@@ -45,7 +45,7 @@ Attribute "trace" "int maxdiffusedepth" [5] "int maxspeculardepth" [10]
 #front
 AttributeBegin
 	Attribute "photon" "shadingmodel" "chrome"
-	Surface "aachrome" "color specularcolor" [0.9 0.8 0.1]
+	Surface "shaders/aachromeCopy" "color specularcolor" [0.9 0.8 0.1]
 	Sides 2
 	Polygon "P" [ -30 -20 100 -30 20 100 30 20 100 30 -20 100 ]
 AttributeEnd
@@ -99,7 +99,7 @@ AttributeEnd
 AttributeBegin
 	
 	Attribute "photon" "shadingmodel" "glass"
-	Surface "glass" "float Ks" 0.9 "float Kd" 0.4
+	Surface "shaders/glassCopy" "float Ks" 0.9 "float Kd" 0.4
 	Translate 2 -17 40
     Color [0.8 0.8 0.8]
 	Sphere 3 -3 3 360
@@ -112,7 +112,7 @@ AttributeBegin
   Translate -15 -20 30
   Attribute "photon" "shadingmodel" "chrome"
   Color 0.3 0.7 0.2
-  Surface "aachrome" "color specularcolor" [0.3 0.7 0.2]
+  Surface "shaders/aachromeCopy" "color specularcolor" [0.3 0.7 0.2]
   Rotate 90 1 0 0
   Cylinder 6 -7 1 180
   Orientation "inside"

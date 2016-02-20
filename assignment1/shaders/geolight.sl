@@ -1,3 +1,5 @@
+// Some components taken from http://webstaff.itn.liu.se/~stegu/pixar/RenderMan_20/geometricAreaLights.html
+// and http://webstaff.itn.liu.se/~stegu/pixar/RenderMan_20/newPhotonMapping.html
 
 //#include <stdrsl/ShadingContext.h> // for ShadingUtils
 //#include <stdrsl/AreaSampler.h>
@@ -18,6 +20,8 @@ class geolight (float intensity = 1;
         Ci = intensity * lightColor;
         Oi = finalOpacity;
     }
+
+    // modified from http://webstaff.itn.liu.se/~stegu/pixar/RenderMan_20/newPhotonMapping.html
     public void generatePhoton(output point origin; output vector direction;
                            output color power; output float pdf)
     {

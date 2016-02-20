@@ -22,7 +22,7 @@
 ** Richmond, CA  94804
 */
 surface
-indirectpaintedplastic( float Ks=.5, Kd=.5, Ka=1, roughness=.1; color specularcolor=1;
+indirectpaintedplastic( float Ks=.7, Kd=.5, Ka=1, roughness=.5; color specularcolor=1;
      string texturename = ""; float samples=16;)
 {
     normal Nf;
