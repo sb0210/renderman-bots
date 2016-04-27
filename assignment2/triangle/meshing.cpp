@@ -6,7 +6,7 @@ extern "C"
 }
 
 #define REAL float
-#define MASS 4
+#define MASS 4.0f
 
 
 Force getGravitationalForce() {
@@ -205,13 +205,13 @@ void Mesh::print(){
 
 void Mesh::computeForcesOnNodes() {
 	for(int i = 0; i<nodes.size(); i++) {
-		nodes[i]->force = getGravitationalForce(nodes[i]);
+		nodes[i]->force = getGravitationalForce();
 	}
 }
 
-void Mesh::updateVelocityOnNodes() {
+void Mesh::updateVelocityOfAllNodes() {
 	for(int i = 0; i<nodes.size(); i++) {
-		nodes[i]->velocity += nodes[i]->force/MASS;
+		nodes[i]->velocity += (nodes[i]->force)/MASS;
 	}
 }
 
@@ -226,7 +226,7 @@ void Mesh::updatePositionOfAllNodes() {
 void Mesh::updateMesh(){
 	
 	computeForcesOnNodes();
-	updateVelocityOnNodes();
+	updateVelocityOfAllNodes();
 	updatePositionOfAllNodes();
 	//calculate new velocity of the nodes.
 	//update the position of the nodes.

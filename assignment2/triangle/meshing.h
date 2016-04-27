@@ -43,10 +43,10 @@ class ViscousStress{
 
 
 class Node{
-private:
+
+public:
 	Velocity velocity;
 	vector<Triangle*> triangles;
-public:
 	Force force;
 	int id;
 	float charge;
