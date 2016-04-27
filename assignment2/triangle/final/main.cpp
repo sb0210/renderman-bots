@@ -1,7 +1,7 @@
 #include "meshing.h"
 #include "gl_framework.hpp"
 #include "shader_util.hpp"
-
+#include <unistd.h>
 GLuint shaderProgram;
 GLuint vbo, vao;
 
@@ -109,6 +109,7 @@ void initBuffersGL(void)
 void update(){
   mesh->updateMesh();
   mesh->getPositions(v_positions,v_colors);
+  mesh->print();
   initBuffersGL();
 
 }
@@ -199,6 +200,7 @@ int main(int argc, char** argv)
       
       // Poll for and process events
       glfwPollEvents();
+      sleep(1);
     }
   
   glfwTerminate();

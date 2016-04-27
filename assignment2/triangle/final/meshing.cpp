@@ -5,7 +5,7 @@
 
 
 Force getGravitationalForce() {
-	return glm::vec2(0, 10);
+	return glm::vec2(0, -10);
 }
 
 Stress::Stress(){
@@ -236,18 +236,19 @@ void Mesh::updateMesh(){
 	//check
 }
 
-void Mesh::getPositions(std::vector<glm::vec4> & v_positions,std::vector<glm::vec4> v_colors){
+#define SCALING 50.0
+void Mesh::getPositions(std::vector<glm::vec4> & v_positions,std::vector<glm::vec4> & v_colors){
   v_positions.resize(3*triangles.size());
   v_colors.resize(3*triangles.size());
   glm::vec4 color(1.0,0.5,0.7,0.5);
   std::vector<glm::vec4> temp_positions;
-  for(int i=0;i<triangles.size();i=i++){
-          v_positions[3*i] = glm::vec4(triangles[i]->nodes[0]->pos.x,triangles[i]->nodes[0]->pos.y,0,0);
-          v_positions[3*i+1] = glm::vec4(triangles[i]->nodes[1]->pos.x,triangles[i]->nodes[1]->pos.y,0,0);
-          v_positions[3*i+2] = glm::vec4(triangles[i]->nodes[2]->pos.x,triangles[i]->nodes[2]->pos.y,0,0);
+  for(int i=0;i<triangles.size();i++){
+          v_positions[3*i] = glm::vec4(triangles[i]->nodes[0]->pos.x/SCALING,triangles[i]->nodes[0]->pos.y/SCALING,0,1);
+          v_positions[3*i+1] = glm::vec4(triangles[i]->nodes[1]->pos.x/SCALING,triangles[i]->nodes[1]->pos.y/SCALING,0,1);
+          v_positions[3*i+2] = glm::vec4(triangles[i]->nodes[2]->pos.x/SCALING,triangles[i]->nodes[2]->pos.y/SCALING,0,1);
           v_colors[3*i] = color;
           v_colors[3*i+1] = color;
-          v_colors[3*i+1] = color;
+          v_colors[3*i+2] = color;
   }
 }
 void updateTriangles();

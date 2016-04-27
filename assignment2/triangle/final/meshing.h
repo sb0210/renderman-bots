@@ -120,7 +120,7 @@ public:
 	int getNumNodes();
 	int getNumTriangles();
 	void genMesh();
-	void getPositions(std::vector<glm::vec4> & v_positions,std::vector<glm::vec4> v_colors);
+	void getPositions(std::vector<glm::vec4> & v_positions,std::vector<glm::vec4> & v_colors);
 	void updateMesh();
 	void print();
 };
