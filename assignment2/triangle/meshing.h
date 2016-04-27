@@ -20,21 +20,7 @@ class Triangle;
 class Node;
 class Mesh;
 
-class GravitationalForce{
-public:
-	Force force;
-	GravitationalForce();
-	Force computeForce();
-};
-
-class ElectromagnetForce{
-public:
-	float k;
-	Force force;
-	ElectromagnetForce();
-	Force computeForce(Position p1, Position p2, float q1, float q2);
-	Force computeForce(Node* n1, Node* n2);
-};
+Force getGravitationalForce(Node* n);
 
 class Stress{
 	float lambda;

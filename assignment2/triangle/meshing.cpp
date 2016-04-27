@@ -6,37 +6,18 @@ extern "C"
 }
 
 #define REAL float
+#define MASS 4
 
 
-GravitationalForce::GravitationalForce(){
-	// f.x=0;
-	// f.y=-10.0;
-}
-Force GravitationalForce::computeForce(){
-	return force;
-}
-
-
-ElectromagnetForce::ElectromagnetForce(){
-	k = 0.005;
-}
-
-Force ElectromagnetForce::computeForce(Position p1, Position p2, float q1, float q2){
-	Force force;
-	// float mag = k*q1*q2/(glm::distance(p1,p2));
-	// glm::vec2 unit = glm::normalize(p1 - p2);
-	// force = mag*unit;
-	return force;
-}
-Force ElectromagnetForce::computeForce(Node* n1, Node* n2)
-{
-	return computeForce(n1->pos, n2->pos,n1->charge, n2->charge);
+Force getGravitationalForce() {
+	return glm::vec2(0, 10);
 }
 
 Stress::Stress(){
 	lambda = 10;
 	mu = 10;
 }
+
 Force Stress::computeForce(Node* n){
 	//using all the neighbours data compute divergence.
 
@@ -222,9 +203,31 @@ void Mesh::print(){
 	}
 }
 
+void Mesh::computeForcesOnNodes() {
+	for(int i = 0; i<nodes.size(); i++) {
+		nodes[i]->force = getGravitationalForce(nodes[i]);
+	}
+}
+
+void Mesh::updateVelocityOnNodes() {
+	for(int i = 0; i<nodes.size(); i++) {
+		nodes[i]->velocity += nodes[i]->force/MASS;
+	}
+}
+
+
+void Mesh::updatePositionOfAllNodes() {
+	for(int i = 0; i<nodes.size(); i++) {
+		nodes[i]->pos += nodes[i]->velocity;
+	}
+}
+
+
 void Mesh::updateMesh(){
 	
-	//calculate force on all the nodes.
+	computeForcesOnNodes();
+	updateVelocityOnNodes();
+	updatePositionOfAllNodes();
 	//calculate new velocity of the nodes.
 	//update the position of the nodes.
 	//check all the nodes and all the triangles. if a node ovelap with triangle, compute a set
@@ -237,8 +240,6 @@ void Mesh::updateMesh(){
 	//check for big sides. Divide edge if length too big.
 	//check
 }
-
-void updatePositionOfAllNodes();
 void updateTriangles();
 void removneNode(Node* n);
 void shiftPropertiesOverNeighbours();

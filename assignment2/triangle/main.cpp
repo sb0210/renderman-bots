@@ -5,7 +5,7 @@ int main(){
 	float radius = 10.0;
 	float center_x = 0;
 	float center_y = 0;
-	float partitions = 6;
+	float partitions = 20;
 	vector<Node*> nodes;
 	vector<Triangle*> triangles;
 	Node* n =  new Node(0,0);
