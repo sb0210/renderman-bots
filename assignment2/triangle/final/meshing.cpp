@@ -10,7 +10,7 @@ Force getGravitationalForce() {
 }
 
 Force getForceField(Node* node) {
-	return MASS*glm::vec2(-node->pos.x,node->pos.y);
+	return MASS*glm::vec2(-node->pos.x,-node->pos.y);
 }
 
 Stress::Stress(){
