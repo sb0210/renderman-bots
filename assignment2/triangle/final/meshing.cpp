@@ -2,10 +2,15 @@
 
 #define REAL float
 #define MASS 4.0f
+#define TIMESCALE 20.0f;
 
 
 Force getGravitationalForce() {
-	return glm::vec2(0, -10);
+	return glm::vec2(0.0,0.0)*MASS;//MASS*glm::vec2(0, -10);
+}
+
+Force getForceField(Node* node) {
+	return MASS*glm::vec2(-node->pos.x,node->pos.y);
 }
 
 Stress::Stress(){
@@ -201,12 +206,13 @@ void Mesh::print(){
 void Mesh::computeForcesOnNodes() {
 	for(int i = 0; i<nodes.size(); i++) {
 		nodes[i]->force = getGravitationalForce();
+		nodes[i]->force += getForceField(nodes[i]);
 	}
 }
 
 void Mesh::updateVelocityOfAllNodes() {
 	for(int i = 0; i<nodes.size(); i++) {
-		nodes[i]->velocity += (nodes[i]->force)/MASS;
+		nodes[i]->velocity += (nodes[i]->force)/MASS/TIMESCALE;
 	}
 }
 
@@ -214,6 +220,9 @@ void Mesh::updateVelocityOfAllNodes() {
 void Mesh::updatePositionOfAllNodes() {
 	for(int i = 0; i<nodes.size(); i++) {
 		nodes[i]->pos += nodes[i]->velocity;
+		if(nodes[i]->pos.y < -30) {
+			nodes[i]->pos.y = -30;
+		}
 	}
 }
 
