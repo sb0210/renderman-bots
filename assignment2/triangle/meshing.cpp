@@ -173,12 +173,16 @@ bool Triangle::inTriangle(Position p){
 	return (alpha>0 && beta > 0 && gamma >0);
 }
 void Triangle::print(){
-	cout<<"Triangle Number "<<this->id<<endl;
-	cout<<"Points in triangle"<<endl;
+	// cout<<"Triangle Number "<<this->id<<endl;
+	// cout<<"Points in triangle"<<endl;
+	cout<<"Polygon[{";
 	for(int i=0;i<3;i++){
-		cout<<i<<"\t"<<nodes[i]->id<<endl;
+		cout<<"{"<<nodes[i]->pos.x<<","<<nodes[i]->pos.y<<"}";
+		if(i<2){
+			cout<<",";
+		}
 	}
-
+	cout<<"}],"<<endl;
 }
 
 Mesh::Mesh(){
@@ -216,6 +220,20 @@ void Mesh::print(){
 	for(int i=0;i<triangles.size();i++){
 		triangles[i]->print();
 	}
+}
+
+void Mesh::updateMesh(){
+	//calculate force on all the nodes.
+	//calculate new velocity of the nodes.
+	//update the position of the nodes.
+	//check all the nodes and all the triangles. if a node ovelap with triangle, compute a set
+	//perform contraction pass. remove edges if too short.
+	//split overlapping elements.
+	//with each split, again contract.
+	//check the triangles. check nodes are present in another triangle. remove them.
+	//check for changes in length, merge nodes if length too short.
+	//check for big sides. Divide edge if length too big.
+	//check
 }
 
 void updatePositionOfAllNodes();

@@ -131,6 +131,7 @@ public:
 	int getNumNodes();
 	int getNumTriangles();
 	void genMesh();
+	void updateMesh();
 	void print();
 };
 
