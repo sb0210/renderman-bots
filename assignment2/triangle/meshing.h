@@ -61,6 +61,7 @@ private:
 	Velocity velocity;
 	vector<Triangle*> triangles;
 public:
+	Force force;
 	int id;
 	float charge;
 	Position pos;
@@ -120,6 +121,8 @@ public:
 	Mesh(vector<Node*>nodes,vector<Triangle*> triangles);
 	float getVolume();
 	float getVolumeofTriangles();
+
+	void computeForcesOnNodes();
 	void updateVelocityOfAllNodes();
 	void updatePositionOfAllNodes();
 	void updateTriangles();

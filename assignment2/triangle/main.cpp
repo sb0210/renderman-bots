@@ -11,7 +11,7 @@ int main(){
 	Node* n =  new Node(0,0);
 	nodes.push_back(n);
 	nodes[0]->id = 0;
-	int angle = 360/partitions;
+	float angle = 2*3.1415/partitions;
 	for(int i=0;i<partitions;i++){
 		Node* n1 = new Node(center_x + (radius/2)*cos(i*angle),center_y + (radius/2)*sin(i*angle));
 		nodes.push_back(n1);

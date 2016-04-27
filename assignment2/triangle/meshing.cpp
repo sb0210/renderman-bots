@@ -223,13 +223,15 @@ void Mesh::print(){
 }
 
 void Mesh::updateMesh(){
+	
 	//calculate force on all the nodes.
 	//calculate new velocity of the nodes.
 	//update the position of the nodes.
 	//check all the nodes and all the triangles. if a node ovelap with triangle, compute a set
 	//perform contraction pass. remove edges if too short.
-	//split overlapping elements.
+	//split overlapping elements of the s.
 	//with each split, again contract.
+	//
 	//check the triangles. check nodes are present in another triangle. remove them.
 	//check for changes in length, merge nodes if length too short.
 	//check for big sides. Divide edge if length too big.
