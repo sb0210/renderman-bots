@@ -87,10 +87,12 @@ void initBuffersGL(void)
   // Load shaders and use the resulting shader program
   std::string vertex_shader_file("vshader.glsl");
   std::string fragment_shader_file("fshader.glsl");
+  std::string g_shader_file("gshader.glsl");
 
   std::vector<GLuint> shaderList;
   shaderList.push_back(csX75::LoadShaderGL(GL_VERTEX_SHADER, vertex_shader_file));
   shaderList.push_back(csX75::LoadShaderGL(GL_FRAGMENT_SHADER, fragment_shader_file));
+  shaderList.push_back(csX75::LoadShaderGL(GL_GEOMETRY_SHADER, g_shader_file));
 
   shaderProgram = csX75::CreateProgramGL(shaderList);
   glUseProgram( shaderProgram );
