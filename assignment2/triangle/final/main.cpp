@@ -1,4 +1,6 @@
 #include "meshing.h"
+#include "gl_framework.hpp"
+#include "shader_util.hpp"
 
 GLuint shaderProgram;
 GLuint vbo, vao;
@@ -102,12 +104,11 @@ void initBuffersGL(void)
   glEnableVertexAttribArray( vColor );
   glVertexAttribPointer( vColor, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET((v_positions.size()*sizeof(glm::vec4))) );
 
-  uRotationMatrix = glGetUniformLocation( shaderProgram, "uRotationMatrix");
-}
+  }
 
 void update(){
   mesh->updateMesh();
-  mesh->updatePositionColors(v_positions,v_colors);
+  mesh->getPositions(v_positions,v_colors);
   initBuffersGL();
 
 }

@@ -1,42 +1,18 @@
 #include "meshing.h"
-extern "C" 
-{
-
-	#include "triangle.h"
-}
 
 #define REAL float
+#define MASS 4.0f
 
 
-GravitationalForce::GravitationalForce(){
-	// f.x=0;
-	// f.y=-10.0;
-}
-Force GravitationalForce::computeForce(){
-	return force;
-}
-
-
-ElectromagnetForce::ElectromagnetForce(){
-	k = 0.005;
-}
-
-Force ElectromagnetForce::computeForce(Position p1, Position p2, float q1, float q2){
-	Force force;
-	// float mag = k*q1*q2/(glm::distance(p1,p2));
-	// glm::vec2 unit = glm::normalize(p1 - p2);
-	// force = mag*unit;
-	return force;
-}
-Force ElectromagnetForce::computeForce(Node* n1, Node* n2)
-{
-	return computeForce(n1->pos, n2->pos,n1->charge, n2->charge);
+Force getGravitationalForce() {
+	return glm::vec2(0, 10);
 }
 
 Stress::Stress(){
 	lambda = 10;
 	mu = 10;
 }
+
 Force Stress::computeForce(Node* n){
 	//using all the neighbours data compute divergence.
 
@@ -222,9 +198,31 @@ void Mesh::print(){
 	}
 }
 
+void Mesh::computeForcesOnNodes() {
+	for(int i = 0; i<nodes.size(); i++) {
+		nodes[i]->force = getGravitationalForce();
+	}
+}
+
+void Mesh::updateVelocityOfAllNodes() {
+	for(int i = 0; i<nodes.size(); i++) {
+		nodes[i]->velocity += (nodes[i]->force)/MASS;
+	}
+}
+
+
+void Mesh::updatePositionOfAllNodes() {
+	for(int i = 0; i<nodes.size(); i++) {
+		nodes[i]->pos += nodes[i]->velocity;
+	}
+}
+
+
 void Mesh::updateMesh(){
 	
-	//calculate force on all the nodes.
+	computeForcesOnNodes();
+	updateVelocityOfAllNodes();
+	updatePositionOfAllNodes();
 	//calculate new velocity of the nodes.
 	//update the position of the nodes.
 	//check all the nodes and all the triangles. if a node ovelap with triangle, compute a set
@@ -239,21 +237,19 @@ void Mesh::updateMesh(){
 }
 
 void Mesh::getPositions(std::vector<glm::vec4> & v_positions,std::vector<glm::vec4> v_colors){
-	v_positions.resize(3*triangles.size());
-	v_colors.resize(3*triangles.size());
-	glm::vec4 color(1.0,0.5,0.7,0.5);
-	std::vector<glm::vec4> temp_positions;
-	for(int i=0;i<triangle.size();i=i++){
-		v_positions[3*i] = glm::vec4(triangle[i]->nodes[0]->pos.x,triangle[i]->nodes[0]->pos.y,0,0);
-		v_positions[3*i+1] = glm::vec4(triangle[i]->nodes[1]->pos.x,triangle[i]->nodes[1]->pos.y,0,0);
-		v_positions[3*i+2] = glm::vec4(triangle[i]->nodes[2]->pos.x,triangle[i]->nodes[2]->pos.y,0,0);
-		v_colors[3*i] = color;
-		v_colors[3*i+1] = color;
-		v_colors[3*i+1] = color;
-	}
+  v_positions.resize(3*triangles.size());
+  v_colors.resize(3*triangles.size());
+  glm::vec4 color(1.0,0.5,0.7,0.5);
+  std::vector<glm::vec4> temp_positions;
+  for(int i=0;i<triangles.size();i=i++){
+          v_positions[3*i] = glm::vec4(triangles[i]->nodes[0]->pos.x,triangles[i]->nodes[0]->pos.y,0,0);
+          v_positions[3*i+1] = glm::vec4(triangles[i]->nodes[1]->pos.x,triangles[i]->nodes[1]->pos.y,0,0);
+          v_positions[3*i+2] = glm::vec4(triangles[i]->nodes[2]->pos.x,triangles[i]->nodes[2]->pos.y,0,0);
+          v_colors[3*i] = color;
+          v_colors[3*i+1] = color;
+          v_colors[3*i+1] = color;
+  }
 }
-
-void updatePositionOfAllNodes();
 void updateTriangles();
 void removneNode(Node* n);
 void shiftPropertiesOverNeighbours();

@@ -20,21 +20,7 @@ class Triangle;
 class Node;
 class Mesh;
 
-class GravitationalForce{
-public:
-	Force force;
-	GravitationalForce();
-	Force computeForce();
-};
-
-class ElectromagnetForce{
-public:
-	float k;
-	Force force;
-	ElectromagnetForce();
-	Force computeForce(Position p1, Position p2, float q1, float q2);
-	Force computeForce(Node* n1, Node* n2);
-};
+Force getGravitationalForce(Node* n);
 
 class Stress{
 	float lambda;
@@ -57,10 +43,10 @@ class ViscousStress{
 
 
 class Node{
-private:
+
+public:
 	Velocity velocity;
 	vector<Triangle*> triangles;
-public:
 	Force force;
 	int id;
 	float charge;
@@ -83,9 +69,9 @@ public:
 
 
 class Triangle{
-private:
-	vector<Node*> nodes;
+
 public:
+	vector<Node*> nodes;
 	int id;
 	float volume;
 	Triangle();
@@ -134,12 +120,9 @@ public:
 	int getNumNodes();
 	int getNumTriangles();
 	void genMesh();
+	void getPositions(std::vector<glm::vec4> & v_positions,std::vector<glm::vec4> v_colors);
 	void updateMesh();
 	void print();
-	
-	void Mesh::getPositions(std::vector<glm::vec4> & v_positions,std::vector<glm::vec4> v_colors);
-
-
 };
 
 void report(struct triangulateio *io,
