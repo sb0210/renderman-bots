@@ -5,7 +5,7 @@
 #define TIMESCALE 20.0f;
 #define MINIMUM_EDGE_LENGTH 6
 #define MINIMUM_MAX_EDGE_LENGTH 4
-#define MAXIMUM_EDGE_LENGTH 10
+#define MAXIMUM_EDGE_LENGTH 18
 
 
 Force getGravitationalForce() {
@@ -13,7 +13,11 @@ Force getGravitationalForce() {
 }
 
 Force getForceField(Node* node) {
-	return MASS*glm::vec2(-node->pos.x,-node->pos.y);
+	// if(node->pos.x>0)
+		return MASS*glm::vec2(node->pos.x,node->pos.y);
+	// else{
+		// return MASS*glm::vec2(0,node->pos.y);		
+	// }
 	// return MASS*glm::vec2(1,1);
 }
 
@@ -226,7 +230,8 @@ void Mesh::updatePositionOfAllNodes() {
 		// if(rand()%2==0)
 			// nodes[i]->pos += nodes[i]->velocity;
 		// else
-			nodes[i]->pos -= glm::normalize(nodes[i]->pos);//nodes[i]->velocity;
+		if(nodes[i]->pos.x>0)
+			nodes[i]->pos += glm::normalize(nodes[i]->velocity);//nodes[i]->velocity;
 		if(nodes[i]->pos.y < -30) {
 			nodes[i]->pos.y = -30;
 		}
@@ -291,7 +296,7 @@ void Mesh::updateTriangles(){
 				min_i = j;
 			}
 		}
-		if(max_edge_length>MAXIMUM_EDGE_LENGTH){
+		if(max_edge_length>MAXIMUM_EDGE_LENGTH ){
 			Node* node =  new Node((triangles[i]->nodes[max_i%3]->pos + triangles[i]->nodes[(max_i+1)%3]->pos)/2.0f);
 			node->force = (triangles[i]->nodes[max_i%3]->force + triangles[i]->nodes[(max_i+1)%3]->force)/2.0f;
 			node->velocity = (triangles[i]->nodes[max_i%3]->velocity + triangles[i]->nodes[(max_i+1)%3]->velocity)/2.0f;
@@ -313,31 +318,56 @@ void Mesh::updateTriangles(){
 			triangles.erase (triangles.begin()+i);
 			i--;
 		}
-		else if(min_edge_length<MINIMUM_EDGE_LENGTH){
-			cout<<"IN MINIMUM_EDGE_LENGTH"<<endl;
-			if(true){
-				
-				vector<Triangle*> neighbours =  triangles[i]->nodes[(min_i+1)%3]->getTriangles();
-				
-				triangles[i]->nodes[(min_i)%3]->addTriangles(neighbours);
-				for(int ii=0;ii<neighbours.size();ii++){
-					if(neighbours[ii]==triangles[i])
-						continue;
-					for(int k=0;k<3;k++){
-						if(neighbours[ii]->nodes[k]==triangles[i]->nodes[(min_i+1)%3]){
-							neighbours[ii]->nodes[k]=triangles[i]->nodes[(min_i)%3];
-						}
-					}
-				}
-				// free(triangles[i]->nodes[(min_i+1)%3]);
-				// free(triangles[i]);
-				triangles[i]->print();
-				// int x;
-				// cin>>x;
-				triangles.erase (triangles.begin()+i);
-				i--;
-				// break;
-			}
+		// else if(min_edge_length<MINIMUM_EDGE_LENGTH){
+		// 	if(true){	
+		// 		cout<<"Delete"<<endl;
+		// 		Node * remove_node = triangles[i]->nodes[min_i];
+		// 		cout<<remove_node->pos.x<<remove_node->pos.y<<endl;
+		// 		Node* neighbour_node = triangles[i]->nodes[(min_i+1)%3];
+		// 		cout<<neighbour_node->pos.x<<neighbour_node->pos.y<<endl;
+		// 		vector<Triangle*> neighbours =  remove_node->getTriangles();
+		// 		for(int p=0;p<neighbours.size();p++){
+		// 			neighbours[p]->print();
+		// 		}
+		// 		int x;
+		// 		cin>>x;	
+		// 		neighbour_node->addTriangles(neighbours);
+		// 		cout<<"[a[a"<<endl;
+		// 		for(int p=0;p<neighbours.size();p++){
+		// 			neighbours[p]->print();
+		// 		}
+		// 		cin>>x;
+		// 		for(int ii=0;ii<neighbours.size();ii++){
+		// 			if(neighbours[ii]==triangles[i])
+		// 				continue;
+		// 			for(int k=0;k<3;k++){
+		// 				if(neighbours[ii]->nodes[k]==remove_node){
+		// 					neighbours[ii]->nodes[k]=neighbour_node;
+		// 				}
+		// 			}
+		// 		}
+
+		// 		for(int kk=0;kk<3;kk++){
+		// 			if(triangles[i]->nodes[kk]==remove_node){
+		// 				if(remove_node!=NULL)
+		// 				free(remove_node);
+		// 				nodes.erase(std::remove(nodes.begin(), nodes.end(), triangles[i]->nodes[kk]), nodes.end());						
+		// 			}
+		// 			else if(triangles[i]->nodes[kk]->getNeighbours().size()==1){
+		// 				if(triangles[i]->nodes[kk]!=NULL)
+		// 				free(triangles[i]->nodes[kk]);
+		// 				cout<<"chutiay"<<endl;
+		// 				nodes.erase(std::remove(nodes.begin(), nodes.end(), triangles[i]->nodes[kk]), nodes.end());
+		// 			}
+		// 		}
+		// 		if(triangles[i]!=NULL)
+		// 		free(triangles[i]);
+		// 		triangles.erase (triangles.begin()+i);
+		// 		i--;
+		// 		cout<<"SP"<<endl;
+		// 		// break;
+		// 		break;
+		// 	}
 			// else{
 			// 	vector<Triangle*> neighbours =  triangles[i]->nodes[min_i]->getTriangles();
 			// 	triangles[i]->nodes[(min_i+1)%3]->addTriangles(neighbours);
@@ -361,7 +391,6 @@ void Mesh::updateTriangles(){
 			// }
 		}
 
-	}
 
 
 	triangles.insert(triangles.end(), triangleList.begin(),triangleList.end());
