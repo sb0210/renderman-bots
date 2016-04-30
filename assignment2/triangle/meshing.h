@@ -20,7 +20,21 @@ class Triangle;
 class Node;
 class Mesh;
 
-Force getGravitationalForce(Node* n);
+class GravitationalForce{
+public:
+	Force force;
+	GravitationalForce();
+	Force computeForce();
+};
+
+class ElectromagnetForce{
+public:
+	float k;
+	Force force;
+	ElectromagnetForce();
+	Force computeForce(Position p1, Position p2, float q1, float q2);
+	Force computeForce(Node* n1, Node* n2);
+};
 
 class Stress{
 	float lambda;
@@ -43,10 +57,10 @@ class ViscousStress{
 
 
 class Node{
-
-public:
+private:
 	Velocity velocity;
 	vector<Triangle*> triangles;
+public:
 	Force force;
 	int id;
 	float charge;
